@@ -81,7 +81,7 @@ export function generateRandomNumber(alreadyPickedNumbers: number[]): number {
     let randomNumber: number;
 
     do {
-        randomNumber = Math.floor(Math.random() * (maxNumber + 1));
+        randomNumber = Math.floor(Math.random() * maxNumber) + 1;
     } while (alreadyPickedNumbers.includes(randomNumber));
 
     return randomNumber;

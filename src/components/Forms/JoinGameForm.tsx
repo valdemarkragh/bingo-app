@@ -1,22 +1,16 @@
 import { Button, FormControl, FormLabel, Input, VStack, FormErrorMessage } from "@chakra-ui/react";
-import { useAppDispatch } from "../../store/hooks";
-import { useNavigate } from "react-router-dom";
-import { addPlayer, getGame } from "../../helpers/firestoreHelpers";
 import { useForm } from "react-hook-form";
-import { generateBingoPlate } from "../../helpers/bingoPlateHelpers";
-import { setKey } from "../../store/slices/gameSlice";
-import { setUsername } from "../../store/slices/playerSlice";
 import { CustomIcon } from "../Shared/CustomIcon";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { useFirestoreContext } from "../../context/firestoreContext";
 
-interface JoinGameForm {
+export interface JoinGameForm {
     username: string;
     key: string;
 }
 
 export const JoinGameForm = () => {
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
+    const { handleJoinGame } = useFirestoreContext();
 
     const {
         handleSubmit,
@@ -30,29 +24,19 @@ export const JoinGameForm = () => {
         },
     });
 
-    const handleJoinGame = async ({ username, key }: JoinGameForm) => {
-        const game = await getGame(key);
+    const joinGame = async (data: JoinGameForm) => {
+        const success = await handleJoinGame(data);
 
-        if (!game?.data)
+        if (!success) {
             return setError("key", {
                 type: "custom",
                 message: "Ugyldig nøgle",
             });
-
-        await addPlayer({
-            key,
-            username,
-            bingoPlate: JSON.stringify(generateBingoPlate()),
-            isAdmin: false,
-        });
-
-        dispatch(setKey(key));
-        dispatch(setUsername(username));
-
-        navigate("/game");
+        }
     };
+
     return (
-        <form onSubmit={handleSubmit(handleJoinGame)}>
+        <form onSubmit={handleSubmit(joinGame)}>
             <VStack spacing={6}>
                 <FormControl isInvalid={Boolean(errors.username)}>
                     <FormLabel>Brugernavn</FormLabel>

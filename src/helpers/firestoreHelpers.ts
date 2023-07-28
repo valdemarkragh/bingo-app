@@ -39,15 +39,27 @@ export const addPlayerToGame = async (player: IPlayer, key: string) => {
     });
 };
 
-export const removePlayerFromGame = async (username: string, key: string) => {
+export const removePlayerFromGame = async (playerId: string, key: string) => {
     const game = await getGame(key);
 
     if (!game) return null;
 
-    const players = game.data.currentPlayers.filter((player) => player.username !== username);
+    const players = game.data.currentPlayers.filter((player) => player.playerId !== playerId);
 
     await updateDoc(doc(db, "games", game.docId), {
         currentPlayers: players,
+    });
+};
+
+export const kickPlayer = async (playerId: string, key: string) => {
+    await removePlayerFromGame(playerId, key);
+
+    const player = await getPlayer(playerId, key);
+
+    if (!player) return null;
+
+    await updateDoc(doc(db, "players", player.docId), {
+        kicked: true,
     });
 };
 
@@ -58,8 +70,8 @@ export const addPlayer = async (data: IPlayer) => {
     await addPlayerToGame(data, data.key);
 };
 
-export const getPlayer = async (username: string, key: string) => {
-    const playerQuery = query(collection(db, "players"), where("username", "==", username), where("key", "==", key));
+export const getPlayer = async (playerId: string, key: string) => {
+    const playerQuery = query(collection(db, "players"), where("playerId", "==", playerId), where("key", "==", key));
     const querySnapshot = await getDocs(playerQuery);
 
     if (querySnapshot.empty) {
@@ -74,9 +86,8 @@ export const getGameQuery = (key: string) => {
     return query(gameCollection, where("key", "==", key));
 };
 
-export const getPlayerQuery = (username: string) => {
-    const playerCollection = collection(db, "players");
-    return query(playerCollection, where("username", "==", username));
+export const getPlayerQuery = (playerId: string, key: string) => {
+    return query(collection(db, "players"), where("playerId", "==", playerId), where("key", "==", key));
 };
 
 export const updatePickedNumbers = async (alreadyPickedNumbers: number[], docId: string) => {

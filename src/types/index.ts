@@ -1,8 +1,10 @@
 export interface IPlayer {
     key: string;
+    playerId: string;
     username: string;
     bingoPlate: string;
     isAdmin: boolean;
+    kicked: boolean;
 }
 
 export interface IPlayerWinner extends IPlayer {

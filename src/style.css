@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 *,
 *::before,
 *::after {
@@ -17,8 +19,7 @@ body {
 
 .app {
     min-height: 100dvh;
-    display: flex;
-    background-color: rgba(226, 239, 239, 0.95);
+    background-color: rgba(49, 151, 149, 0.9);
 }
 
 .bingo-plate {
@@ -28,7 +29,7 @@ body {
 }
 
 .bingo-num {
-    height: 75px;
+    height: 85px;
     font-size: 40px;
     display: flex;
     align-items: center;
@@ -41,8 +42,8 @@ body {
 }
 
 .bingo-plate.mini .bingo-num {
-    height: 20px;
-    font-size: 10px;
+    height: 25px;
+    font-size: 12px;
 }
 
 .bingo-num.picked {

@@ -1,7 +1,12 @@
-import { useAppSelector } from "../../store/hooks";
+import { Box } from "@chakra-ui/react";
+import { useFirestoreContext } from "../../context/firestoreContext";
 
 export const BingoNumber = ({ num }: { num: number | null }) => {
-    const { gameMetaData } = useAppSelector((state) => state.game);
+    const { game } = useFirestoreContext();
 
-    return <div className={`bingo-num ${num && gameMetaData?.pickedNumbers.includes(num) ? "picked" : ""}`}>{num ?? ""}</div>;
+    return (
+        <Box color='teal.900' fontWeight='500' className={`bingo-num ${num && game.data?.pickedNumbers.includes(num) ? "picked" : ""}`}>
+            {num ?? ""}
+        </Box>
+    );
 };

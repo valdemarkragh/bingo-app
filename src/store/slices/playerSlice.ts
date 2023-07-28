@@ -2,13 +2,13 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IPlayer } from "../../types";
 
 interface IPlayerState {
-    username: null | string;
+    playerId: null | string;
     playerMetaData: IPlayer | null;
     playerDocId: string | null;
 }
 
 const initialState: IPlayerState = {
-    username: localStorage.getItem("username"),
+    playerId: localStorage.getItem("playerId"),
     playerMetaData: null,
     playerDocId: null,
 };
@@ -17,14 +17,14 @@ export const playerSlice = createSlice({
     name: "player",
     initialState: initialState,
     reducers: {
-        setUsername: (state, action: PayloadAction<null | string>) => {
+        setPlayerId: (state, action: PayloadAction<null | string>) => {
             if (action.payload) {
-                localStorage.setItem("username", action.payload);
+                localStorage.setItem("playerId", action.payload);
             } else {
-                localStorage.removeItem("username");
+                localStorage.removeItem("playerId");
             }
 
-            state.username = action.payload;
+            state.playerId = action.payload;
         },
         setPlayerMetaData: (state, action: PayloadAction<IPlayer | null>) => {
             state.playerMetaData = action.payload;
@@ -33,13 +33,13 @@ export const playerSlice = createSlice({
             state.playerDocId = action.payload;
         },
         clearPlayerData: (state) => {
-            state.username = null;
+            state.playerId = null;
             state.playerMetaData = null;
             state.playerDocId = null;
-            localStorage.removeItem("username");
+            localStorage.removeItem("playerId");
         },
     },
 });
 
-export const { setUsername, setPlayerMetaData, setPlayerDocId, clearPlayerData } = playerSlice.actions;
+export const { setPlayerId, setPlayerMetaData, setPlayerDocId, clearPlayerData } = playerSlice.actions;
 export default playerSlice.reducer;
