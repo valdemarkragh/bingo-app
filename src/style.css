@@ -1,0 +1,97 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+#root {
+    background-image: url("./images/bankoPlade.jpg");
+    background-position: center;
+    background-repeat: no-repeat, repeat;
+    background-size: cover;
+}
+
+.app {
+    min-height: 100dvh;
+    display: flex;
+    background-color: rgba(226, 239, 239, 0.95);
+}
+
+.bingo-plate {
+    border: 2px solid black;
+    background-color: #fff;
+    width: 100%;
+}
+
+.bingo-num {
+    height: 75px;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+}
+
+.bingo-plate.mini {
+    border: 2px solid black;
+}
+
+.bingo-plate.mini .bingo-num {
+    height: 20px;
+    font-size: 10px;
+}
+
+.bingo-num.picked {
+    color: green;
+    font-weight: bold;
+    background: #dbf7f7;
+}
+
+.picked-numbers {
+    display: flex;
+    gap: 10px;
+}
+
+.loading::after {
+    display: inline-block;
+    animation: dotty steps(1, end) 1.2s infinite;
+    content: "";
+}
+
+@keyframes dotty {
+    0% {
+        content: "";
+    }
+    25% {
+        content: ".";
+    }
+    50% {
+        content: "..";
+    }
+    75% {
+        content: "...";
+    }
+    100% {
+        content: "";
+    }
+}
+
+@media (max-width: 700px) {
+    .bingo-plate {
+        border: 1px solid black;
+    }
+
+    .bingo-num {
+        height: 35px;
+        font-size: 20px;
+    }
+
+    .bingo-plate.mini .bingo-num {
+        height: 25px;
+        font-size: 15px;
+    }
+}
