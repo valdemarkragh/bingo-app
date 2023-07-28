@@ -4,12 +4,16 @@ import { JoinGameForm } from "../components/Forms/JoinGameForm";
 
 export const Home = () => {
     return (
-        <Container height='100%' alignItems='center' maxW='lg' display='flex' justifyContent='center'>
+        <Container height='100%' alignItems='center' maxW='xl' display='flex' justifyContent='center'>
             <Box borderRadius={10} backgroundColor='white' width='100%' border='1px solid teal'>
                 <Tabs isFitted colorScheme='teal' variant='line'>
                     <TabList>
-                        <Tab fontWeight='bold'>Nyt spil</Tab>
-                        <Tab fontWeight='bold'>Tilslut spil</Tab>
+                        <Tab py={5} fontWeight='bold'>
+                            Nyt spil
+                        </Tab>
+                        <Tab py={5} fontWeight='bold'>
+                            Tilslut spil
+                        </Tab>
                     </TabList>
                     <TabPanels>
                         <TabPanel>
